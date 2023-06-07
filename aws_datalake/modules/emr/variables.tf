@@ -103,7 +103,7 @@ variable "task_instance_max_count" {
 
 variable "bootstrap_action" {
   description = "Ordered list of bootstrap actions that will be run before Hadoop is started on the cluster nodes"
-  type        = list(map(string))
+  type        = map(string)
   default     = []
 }
 
