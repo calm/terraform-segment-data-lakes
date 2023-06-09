@@ -369,7 +369,7 @@ resource "aws_iam_role_policy_attachment" "segment_emr_instance_profile_policy_a
 }
 
 resource "aws_iam_role_policy_attachment" "segment_emr_instance_profile_policy_custom_attachment" {
-  count = var.custom_emr_instance_profile_policy_arn ? 1 : 0
+  count = var.attach_custom_emr_isntance_profile_policy ? 1 : 0
   role = aws_iam_role.segment_emr_instance_profile_role.name
   policy_arn = var.custom_emr_instance_profile_policy_arn
 }
