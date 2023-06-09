@@ -289,7 +289,7 @@ resource "aws_iam_instance_profile" "segment_emr_instance_profile" {
   role = aws_iam_role.segment_emr_instance_profile_role.name
 }
 
-resource "aws_aim_policy" "segment_emr_instance_profile_policy" {
+resource "aws_iam_policy" "segment_emr_instance_profile_policy" {
   name = "SegmentEMRInstanceProfilePolicy${var.suffix}"
 
   policy = <<EOF
@@ -388,12 +388,12 @@ resource "aws_iam_policy" "custom_emr_instance_profile_policy" {
 EOF
 }
 
-resource "aws_aim_role_policy_attachment" "segment_emr_instance_profile_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "segment_emr_instance_profile_policy_attachment" {
   role = segment_emr_instance_profile_role.name
   policy_arn = segment_emr_instance_profile_policy.arn
 }
 
-resource "aws_aim_role_policy_attachment" "segment_emr_instance_profile_policy_custom_attachment" {
+resource "aws_iam_role_policy_attachment" "segment_emr_instance_profile_policy_custom_attachment" {
   role = segment_emr_instance_profile_role.name
   policy_arn = custom_emr_instance_profile_policy.arn
 }
