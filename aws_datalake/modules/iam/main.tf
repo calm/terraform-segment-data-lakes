@@ -381,7 +381,7 @@ resource "aws_iam_policy" "custom_emr_instance_profile_policy" {
             "Action": [
                 "ssm:GetParameters"
             ],
-            "Resource": "arn:aws:ssm:us-east-1:083265760884:parameter/data-dev/datalakes"
+            "Resource": "arn:aws:ssm:us-east-1:083265760884:parameter/data-dev/us-east-1/segment-data-lake"
         }
     ]
 }
