@@ -46,6 +46,12 @@ variable "tags" {
   default     = {}
 }
 
+variable "custom_emr_instance_profile_policy_arn" {
+  description = "ARN of a IAM policy. This policy will be attached to the instance profile role"
+  type        = string
+  default     = ""
+}
+
 locals {
   tags = merge(tomap({"vendor" = "segment"}), var.tags)
 }
