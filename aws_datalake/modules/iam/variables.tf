@@ -53,7 +53,7 @@ variable "custom_emr_instance_profile_policy_arn" {
 }
 
 variable "attach_custom_emr_isntance_profile_policy" {
-  decription = "boolean flag to use the above policy arn"
+  description = "boolean flag to use the above policy arn"
   type       = bool
   default    = false
 }
