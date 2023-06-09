@@ -389,13 +389,13 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "segment_emr_instance_profile_policy_attachment" {
-  role = segment_emr_instance_profile_role.name
-  policy_arn = segment_emr_instance_profile_policy.arn
+  role = aws_iam_role.segment_emr_instance_profile_role.name
+  policy_arn = aws_iam_policy.segment_emr_instance_profile_policy.arn
 }
 
 resource "aws_iam_role_policy_attachment" "segment_emr_instance_profile_policy_custom_attachment" {
-  role = segment_emr_instance_profile_role.name
-  policy_arn = custom_emr_instance_profile_policy.arn
+  role = aws_iam_role.segment_emr_instance_profile_role.name
+  policy_arn = aws_iam_policy.custom_emr_instance_profile_policy.arn
 }
 
 # IAM Role for EMR Autoscaling role
