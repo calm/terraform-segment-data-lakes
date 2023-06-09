@@ -363,9 +363,39 @@ resource "aws_aim_policy" "segment_emr_instance_profile_policy" {
 EOF
 }
 
+resource "aws_iam_policy" "custom_emr_instance_profile_policy" {
+  name = "CalmEMRInstanceProfilePolicy${var.suffix}"
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ssm:DescribeParameters"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ssm:GetParameters"
+            ],
+            "Resource": "arn:aws:ssm:us-east-1:083265760884:parameter/data-dev/datalakes"
+        }
+    ]
+}
+EOF
+}
+
 resource "aws_aim_role_policy_attachment" "segment_emr_instance_profile_policy_attachment" {
   role = segment_emr_instance_profile_role.name
   policy_arn = segment_emr_instance_profile_policy.arn
+}
+
+resource "aws_aim_role_policy_attachment" "segment_emr_instance_profile_policy_custom_attachment" {
+  role = segment_emr_instance_profile_role.name
+  policy_arn = custom_emr_instance_profile_policy.arn
 }
 
 # IAM Role for EMR Autoscaling role
@@ -392,6 +422,7 @@ EOF
 
   tags = local.tags
 }
+
 
 resource "aws_iam_role_policy" "segmnet_emr_autoscaling_policy" {
   name = "SegmentEMRAutoscalingPolicy${var.suffix}"
