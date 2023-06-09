@@ -289,9 +289,8 @@ resource "aws_iam_instance_profile" "segment_emr_instance_profile" {
   role = aws_iam_role.segment_emr_instance_profile_role.name
 }
 
-resource "aws_iam_role_policy" "segment_emr_instance_profile_policy" {
+resource "aws_iam_policy" "segment_emr_instance_profile_policy" {
   name = "SegmentEMRInstanceProfilePolicy${var.suffix}"
-  role = aws_iam_role.segment_emr_instance_profile_role.id
 
   policy = <<EOF
 {
@@ -364,6 +363,17 @@ resource "aws_iam_role_policy" "segment_emr_instance_profile_policy" {
 EOF
 }
 
+resource "aws_iam_role_policy_attachment" "segment_emr_instance_profile_policy_attachment" {
+  role = aws_iam_role.segment_emr_instance_profile_role.name
+  policy_arn = aws_iam_policy.segment_emr_instance_profile_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "segment_emr_instance_profile_policy_custom_attachment" {
+  count = var.attach_custom_emr_isntance_profile_policy ? 1 : 0
+  role = aws_iam_role.segment_emr_instance_profile_role.name
+  policy_arn = var.custom_emr_instance_profile_policy_arn
+}
+
 # IAM Role for EMR Autoscaling role
 resource "aws_iam_role" "segment_emr_autoscaling_role" {
   name = "SegmentEMRAutoscalingRole${var.suffix}"
@@ -388,6 +398,7 @@ EOF
 
   tags = local.tags
 }
+
 
 resource "aws_iam_role_policy" "segmnet_emr_autoscaling_policy" {
   name = "SegmentEMRAutoscalingPolicy${var.suffix}"

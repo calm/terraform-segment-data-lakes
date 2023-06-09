@@ -101,6 +101,12 @@ variable "task_instance_max_count" {
   default     = "4"
 }
 
+variable "bootstrap_action" {
+  description = "Ordered list of bootstrap actions that will be run before Hadoop is started on the cluster nodes"
+  type        = any
+  default     = {}
+}
+
 locals {
   tags = merge(tomap({"vendor" = "segment"}), var.tags)
 }

@@ -17,6 +17,16 @@ resource "aws_emr_cluster" "segment_data_lake_emr_cluster" {
   service_role           = var.iam_emr_service_role
   autoscaling_role       = var.iam_emr_autoscaling_role
   security_configuration = var.security_configuration
+  
+  dynamic "bootstrap_action" {
+    for_each = var.bootstrap_action
+
+    content {
+      args = try(bootstrap_action.value.args, null)
+      name = bootstrap_action.value.name
+      path = bootstrap_action.value.path
+    }
+  }
 
   master_instance_group {
     instance_type = var.master_instance_type
